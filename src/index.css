@@ -1,0 +1,69 @@
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body, #root { height: 100%; width: 100%; overflow: hidden; background: #0b0e1a; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #fff; user-select: none; -webkit-user-select: none; touch-action: none; }
+
+.game-root { position: fixed; inset: 0; }
+.game-root canvas { display: block; }
+
+/* ---------- HUD ---------- */
+.hud { position: fixed; top: 0; left: 0; right: 0; padding: calc(8px + env(safe-area-inset-top)) 12px 0; pointer-events: none; z-index: 10; }
+.hud-top { display: flex; gap: 8px; align-items: flex-start; justify-content: space-between; }
+.fighter-card { flex: 1; background: rgba(10,14,30,.72); border: 1px solid rgba(255,255,255,.15); border-radius: 12px; padding: 8px 10px; backdrop-filter: blur(6px); max-width: 38vw; }
+.fighter-card.mino { border-color: #38bdf8; }
+.fighter-card.foe { border-color: #ef4444; text-align: right; }
+.fname { font-weight: 800; font-size: 13px; letter-spacing: .5px; }
+.hpbar { height: 12px; background: #1e293b; border-radius: 99px; overflow: hidden; margin: 6px 0 4px; border: 1px solid rgba(255,255,255,.2); }
+.hpbar .hpfill { height: 100%; border-radius: 99px; transition: width .25s ease; }
+.hpbar.mine .hpfill { background: linear-gradient(90deg, #38bdf8, #22d3ee); }
+.hpbar.foe .hpfill { background: linear-gradient(90deg, #ef4444, #f97316); }
+.hpbar.foe { direction: rtl; }
+.hpnum { font-size: 11px; opacity: .8; }
+.hud-mid { text-align: center; min-width: 90px; }
+.stage-pill { display: inline-block; font-size: 11px; font-weight: 800; border: 2px solid; border-radius: 99px; padding: 3px 10px; background: rgba(0,0,0,.5); }
+.vs { font-weight: 900; font-size: 18px; opacity: .85; }
+.score { font-size: 13px; font-weight: 700; }
+.combo { margin-top: 4px; font-weight: 900; color: #fde047; animation: pop .3s ease infinite alternate; }
+@keyframes pop { from { transform: scale(1); } to { transform: scale(1.12); } }
+.taunt { text-align: center; margin-top: 8px; font-size: 12px; background: rgba(0,0,0,.55); display: block; width: fit-content; margin-left: auto; margin-right: auto; padding: 5px 12px; border-radius: 99px; border: 1px solid rgba(255,255,255,.2); }
+.mute-btn { position: fixed; top: calc(86px + env(safe-area-inset-top)); right: 12px; pointer-events: auto; background: rgba(0,0,0,.5); border: 1px solid rgba(255,255,255,.25); color: #fff; border-radius: 10px; font-size: 16px; padding: 6px 9px; }
+
+/* ---------- Touch controls ---------- */
+.touch-ui { position: fixed; inset: auto 0 0 0; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 16px calc(18px + env(safe-area-inset-bottom)); z-index: 10; pointer-events: none; }
+.joy-base { pointer-events: auto; width: 128px; height: 128px; border-radius: 50%; background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.25); position: relative; backdrop-filter: blur(4px); }
+.joy-knob { position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; background: rgba(56,189,248,.35); border: 2px solid #38bdf8; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.punch-pad { pointer-events: auto; display: grid; grid-template-columns: repeat(2, 72px); gap: 10px; }
+.pbtn { width: 72px; height: 72px; border-radius: 18px; border: 2px solid rgba(255,255,255,.3); background: rgba(10,14,30,.7); color: #fff; font-size: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+.pbtn span { font-size: 9px; font-weight: 800; letter-spacing: .5px; margin-top: 2px; }
+.pbtn:active { transform: scale(.92); }
+.pbtn.jab { border-color: #38bdf8; }
+.pbtn.hook { border-color: #fb923c; }
+.pbtn.upper { border-color: #fde047; }
+.pbtn.block { border-color: #4ade80; }
+
+/* ---------- Screens ---------- */
+.screen { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.menu-screen { background: radial-gradient(ellipse at center, rgba(37,99,235,.35), rgba(11,14,26,.88) 70%); overflow-y: auto; }
+.overlay { background: rgba(5,8,18,.55); backdrop-filter: blur(3px); }
+.title-wrap { text-align: center; max-width: 480px; }
+.fists { font-size: 44px; display: flex; gap: 12px; justify-content: center; }
+.game-title { font-size: clamp(44px, 12vw, 84px); font-weight: 900; line-height: .95; letter-spacing: 2px; background: linear-gradient(180deg, #fde047, #f97316 55%, #ef4444); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 4px 0 rgba(0,0,0,.6)); margin: 8px 0; }
+.subtitle { font-size: 14px; opacity: .9; line-height: 1.5; }
+.extreme { color: #ef4444; font-weight: 900; }
+.level-list { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 14px 0; }
+.lvl-chip { font-size: 10px; font-weight: 800; border: 1.5px solid; border-radius: 99px; padding: 4px 9px; background: rgba(0,0,0,.45); }
+.big-btn { pointer-events: auto; display: inline-block; margin-top: 10px; font-size: 17px; font-weight: 900; color: #0b0e1a; background: linear-gradient(180deg, #fde047, #f97316); border: none; border-radius: 16px; padding: 15px 26px; box-shadow: 0 6px 0 #9a3412, 0 10px 24px rgba(0,0,0,.5); cursor: pointer; letter-spacing: .5px; }
+.big-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #9a3412; }
+.ghost-btn { display: block; margin: 12px auto 0; background: transparent; border: 1px solid rgba(255,255,255,.35); color: #fff; border-radius: 12px; padding: 9px 20px; font-weight: 700; cursor: pointer; }
+.hint { margin-top: 14px; font-size: 11.5px; opacity: .75; line-height: 1.6; }
+.mino-card { margin-top: 12px; display: inline-block; background: rgba(56,189,248,.15); border: 1px solid #38bdf8; padding: 8px 14px; border-radius: 12px; font-size: 13px; }
+.ko-card { background: rgba(13,18,38,.95); border: 2px solid #38bdf8; border-radius: 20px; padding: 26px 24px; text-align: center; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+.ko-card.lose { border-color: #ef4444; }
+.ko-card.gold { border-color: #fde047; }
+.ko-text { font-size: 52px; font-weight: 900; margin-bottom: 6px; }
+.ko-card p { font-size: 14px; line-height: 1.55; opacity: .92; }
+.ko-card .stat { margin-top: 10px; font-weight: 700; color: #fde047; }
+
+@media (min-width: 768px) {
+  .punch-pad { grid-template-columns: repeat(4, 76px); }
+  .fighter-card { max-width: 300px; }
+}

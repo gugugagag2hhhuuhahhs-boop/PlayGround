@@ -1,0 +1,37 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "description": "<!-- omgithub:readme:start --> ## 🚀 Build, play, and remix with OMGithub",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --port 3002 --host",
+    "build": "vite build",
+    "preview": "vite preview --port 3002 --host",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gugugagag2hhhuuhahhs-boop/PlayGround.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gugugagag2hhhuuhahhs-boop/PlayGround/issues"
+  },
+  "homepage": "https://github.com/gugugagag2hhhuuhahhs-boop/PlayGround#readme",
+  "dependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.1",
+    "@react-three/rapier": "^2.2.0",
+    "gsap": "^3.15.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.186.1",
+    "zustand": "^5.0.15"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.3.1"
+  }
+}
